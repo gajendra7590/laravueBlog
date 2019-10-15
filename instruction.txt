@@ -1,0 +1,10 @@
+Instruction to new clone on system to follow the steps
+-----------------
+ Navigate root directory & open command promt/terminal
+
+1. composer update ( update the composer php packages )
+2. npm install ( install all node packages )
+3. php artisan install:passport ( install laravel passport package )
+4. php artisan migrate ( run to create all database tables via migration )
+5. navigate /register to register new user
+6. verify the account & login account.
