@@ -72,7 +72,7 @@
 </script>
 <style scoped>
     .bg-login-image {
-        background: url(/images/login.jpg) !important;
+        background: url(/images/default/login.jpg) !important;
         background-position: center !important;
         background-size: cover !important;
     } 

@@ -85,4 +85,8 @@
     }
 </script>
 <style scoped> 
+  a.router-link-exact-active.router-link-active {
+      color: #F9B500;
+      text-decoration: underline;
+  }
 </style>
