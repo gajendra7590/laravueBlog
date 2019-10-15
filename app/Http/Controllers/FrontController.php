@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 // All Models
 use App\models\Blogs;
 use App\models\BlogCategoryModel as Cat;
+use App\models\Company;
 use App\User;
 
 use Auth;
@@ -14,6 +15,18 @@ use Validator;
 
 class FrontController extends Controller
 {
+
+    /**
+     * Get Categories List for Front Menus
+     */
+    public function contactDetail(){  
+        $getContactDetail = Company::where(['default'=>1])->get()->first(); 
+         return response()->json([
+             'status'=>true,
+             'data'=> ($getContactDetail!=null)?$getContactDetail->toArray():array()
+         ]);
+    } 
+
     /**
      * Get Categories List for Front Menus
      */
@@ -71,18 +84,31 @@ class FrontController extends Controller
     /**
      * Footer Right Most Popular 2
      */
-    public function homeRecentBlogs(){
-        $limit = 8; $offset = 0;
+    public function homeRecentBlogs(Request $request){
+        $data = $request->all(); 
+        $page = intval($data['pageNo']); 
+        $page = ($page>=0)?($page-1):0;
+        $limit = 8; $offset = ($page*$limit);
         $getBlogs = Blogs::select([
             'id','blog_name','blog_title','blog_url',
              'blog_user','blog_category','blog_image','created_at'
-        ])->orderBy('id', 'DESC')
-          ->offset($offset)
-          ->limit($limit)
-          ->get();
+        ]); 
+        $cnt = $getBlogs; 
+        $count =  $cnt->count(); 
+        $totalPage = 0;
+        if($count > 0){
+            $totalPage = ceil($count/$limit);
+        } 
+
+        $getBlogs = $getBlogs->orderBy('id', 'DESC')
+        ->offset($offset)
+        ->limit($limit)
+        ->get();
+
         return response()->json([
             'status'=>true,
-            'data'=>($getBlogs!=null)?$getBlogs->toArray():array()
+            'data'=>($getBlogs!=null)?$getBlogs->toArray():array(),
+            'totalPage'=>$totalPage
         ]);  
     }
 
@@ -145,9 +171,9 @@ class FrontController extends Controller
      */
     public function singleBlog($url){   
         $getBlogs = Blogs::select([
-            'id','blog_name','blog_title','blog_url',
+            'id','blog_name','blog_title','blog_url','blog_desc',
             'blog_user','blog_category','blog_image','created_at','updated_at'
-        ])->where(['blog_url'=>$url])->with(['category:id,category_name','user:id,name,image'])
+        ])->where(['blog_url'=>$url])->with(['category:id,category_name,category_url','user:id,name,image'])
         ->get(); 
         if($getBlogs!=null){
             $getBlogs = ($getBlogs!=null)?$getBlogs->toArray():array(); 
@@ -173,12 +199,12 @@ class FrontController extends Controller
      /**
      * Single Blog Page Similar Post
      */
-    public function singleSimilarPost(){ 
+    public function singleSimilarPost($catname = ''){ 
         $getBlogs = Blogs::select([
             'id','blog_name','blog_title','blog_url',
             'blog_user','blog_category','blog_image','created_at','updated_at'
         ])->with(['user:id,name'])->orderBy('id', 'DESC') 
-        ->limit(2)
+        ->limit(4)
         ->get();
         $getBlogs = ($getBlogs!=null)?$getBlogs->toArray():array(); 
         return response()->json([
@@ -193,21 +219,33 @@ class FrontController extends Controller
     /**
      * Blog Detail with categories
      */
-     public function blogsByCategory($cname){ 
+     public function blogsByCategory(Request $request,$cname){ 
         $cat = Cat::where(['category_url'=>$cname])->first();
-        if($cat!=null){ 
-            $limit = 8; $offset = 0;
+        if($cat!=null){   
+            $data = $request->all();  
+            $page = intval($data['filterData']['pageNo']); 
+            $page = ($page>=0)?($page-1):0;
+            $limit = 8; $offset = ($page*$limit);
             $getBlogs = Blogs::select([
                 'id','blog_name','blog_title','blog_url',
                 'blog_user','blog_category','blog_image','created_at'
-            ])->where(['blog_category'=>$cat->id])
-            ->orderBy('id', 'DESC')
+            ])->where(['blog_category'=>$cat->id]);
+
+            $cnt = $getBlogs; 
+            $count =  $cnt->count(); 
+            $totalPage = 0;
+            if($count > 0){
+                $totalPage = ceil($count/$limit);
+            }  
+            
+            $getBlogs = $getBlogs->orderBy('id', 'DESC')
             ->offset($offset)
             ->limit($limit)
             ->get();
             return response()->json([
                 'status'=>true,
                 'exist'=>true,
+                'totalPage'=>$totalPage,
                 'data'=>($getBlogs!=null)?$getBlogs->toArray():array()
             ]);   
         }else{
@@ -220,6 +258,41 @@ class FrontController extends Controller
                 ]
             ]); 
         }  
+     }
+
+     public function blogsByFilter(Request $request){  
+            $data = $request->all();  
+            $searchTxt = isset($data['text'])?$data['text']:''; 
+            $page = intval($data['filterData']['pageNo']); 
+            $page = ($page>=0)?($page-1):0;
+            $limit = 8; $offset = ($page*$limit); 
+            $getBlogs = Blogs::select([
+                'id','blog_name','blog_title','blog_url',
+                'blog_user','blog_category','blog_image','created_at'
+            ]);
+            if($searchTxt!=''){
+                $getBlogs = $getBlogs
+                ->orWhere('blog_name', 'like', '%' . $searchTxt . '%')
+                ->orWhere('blog_title', 'like', '%' . $searchTxt . '%')
+                ->orWhere('blog_desc', 'like', '%' . $searchTxt . '%')
+                ->orWhere('blog_url', 'like', '%' . $searchTxt . '%');  
+            } 
+            $cnt = $getBlogs; 
+            $count =  $cnt->count(); 
+            $totalPage = 0;
+            if($count > 0){
+                $totalPage = ceil($count/$limit);
+            }              
+            $getBlogs = $getBlogs->orderBy('id', 'DESC')
+            ->offset($offset)
+            ->limit($limit)
+            ->get();
+            return response()->json([
+                'status'=>true,
+                'exist'=>true,
+                'totalPage'=>$totalPage,
+                'data'=>($getBlogs!=null)?$getBlogs->toArray():array()
+            ]);   
      }
 
 

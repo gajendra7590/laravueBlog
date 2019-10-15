@@ -25,7 +25,7 @@
                       <input type="password" v-model="loginForm.password" autocomplete="off" class="form-control form-control-user" placeholder="Password">
                       <p for="" v-if="errorsArr.password" class="text-danger">{{ errorsArr.password }}</p>
                     </div> 
-                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                    <button type="submit" class="btn btn-primary btn-user btn-block" :disabled="submitDisabled">
                       Create Account
                     </button>  
                   </form>
@@ -55,21 +55,30 @@
                email : '',
                password : ''
             },
-            errorsArr:[]
+            errorsArr:[],
+            submitDisabled : false
           }
         },
         methods:{ 
           registerSubmit(){ 
              let _this = this;
+             _this.submitDisabled = true;
              this.$store.dispatch('register',this.loginForm) 
              .then(function(data){
                    if( typeof(data.status)!='undefined' && data.status == true){ 
-                     _this.$toastr.s('Your Account Created Successfully','Success')
-                     _this.$router.push('/login');
+                     _this.$toastr.s('Your Account Created Successfully','Success');  
+                     var url = '/verify-account/'+data.result.data.identifier; 
+                      _this.submitDisabled = false;
+                     setTimeout(function () { 
+                         window.location.href = url;
+                      },2000);
+                    // _this.$router.push(url);
                    }else if( typeof(data.status)!='undefined' && data.status == false){ 
                       _this.errorsArr = data.result.errors;
+                      _this.submitDisabled = false;
                    }else{
-                      _this.$toastr.e('Something went wrong','Invalid')
+                      _this.$toastr.e('Something went wrong','Invalid');
+                       _this.submitDisabled = false;
                   }
              });
           } 

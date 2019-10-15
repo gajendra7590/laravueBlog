@@ -11,9 +11,11 @@ class ContactUsModel extends Model
     public $timestamps = true;
  
     protected $fillable = [
-        'contact_name', 
-        'contact_email',
-        'contact_title', 
-        'contact_note' 
+        'contact_subject', 
+        'contact_fullname',
+        'contact_email', 
+        'contact_phone',
+        'contact_message', 
+        'contact_company' 
     ];
 }

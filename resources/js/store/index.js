@@ -1,17 +1,33 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios'; 
+import VueToastr from 'vue-toastr';
+
+Vue.use(VueToastr,{
+  defaultPosition: 'toast-top-right',
+  defaultType: 'info',
+  defaultTimeout: 3000,
+  closeOnHover: true,
+  clickClose: true,
+  defaultProgressBar :false,
+  defaultClassNames:'zoomInUp'
+}); 
 
 axios.interceptors.response.use(function(response) {  
   return response;
 },function(err) {   
-    if( ( typeof(err.response)!=='undefined') ){   
+    if( ( typeof(err.response)!=='undefined') ){    
         if( (typeof(err.response.status)!== 'undefined') && (err.response.status == 401) && err.response.data.message == 'Unauthenticated.' ){
           localStorage.removeItem('token');
-          alert('Your session has been expired please login..');
+          alert('Your session has been expired please login again..');
           window.location.href = '/login';
+        }else if( (typeof(err.response.status)!== 'undefined') && (err.response.status == 403) && err.response.data.message == 'User does not have the right roles.' ){
+         // alert('Your have no permission to access this section');
+          //window.location.href = '/admin/home';
+
+          console.log(VueToastr)
         }else{
-          alert('else case')
+          alert('something went wrong..')
         }  
     } 
 });
@@ -41,7 +57,7 @@ export default new Vuex.Store({
       apiURL : APIprefix,
       isToken: !!localStorage.getItem('token'),
       getToken: localStorage.getItem('token'),
-      userProfile : null
+      userProfile : null,
     },
     mutations: {  
     },

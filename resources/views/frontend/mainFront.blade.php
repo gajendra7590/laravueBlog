@@ -1,5 +1,5 @@
 @extends('frontend.layout.layout')
     
-@section('content')
+@section('content') 
    <appcomponent><appcomponent/>  
 @endsection

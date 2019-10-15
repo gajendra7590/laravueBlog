@@ -16,11 +16,11 @@
 	<!-- Stylesheets -->	
 	<link href="{{ URL::asset('frontend/plugin-frameworks/bootstrap.css') }}" rel="stylesheet">	
 	<link href="{{ URL::asset('frontend/fonts/ionicons.css') }}" rel="stylesheet"> 		
-  <link href="{{ URL::asset('frontend/common/styles.css') }}" rel="stylesheet">
-  
+  <link href="{{ URL::asset('frontend/common/styles.css') }}" rel="stylesheet"> 
+  <link href="{{ URL::asset('frontend/fontawesome.min.css') }}" rel="stylesheet"> 
 </head> 
     <body>   
-          <div id="app"> 
+          <div id="app" class="loader_image"> 
              @yield('content') 
           </div> 
           <script type="text/javascript" src="{{ URL::asset('js/appFront.js') }}"></script> 
@@ -29,4 +29,4 @@
           <script type="text/javascript" src="{{ URL::asset('/frontend/plugin-frameworks/bootstrap.js') }}"></script>          
           <script type="text/javascript" src="{{ URL::asset('/frontend/common/scripts.js') }}"></script>          
     </body> 
-</html>
+</html> 

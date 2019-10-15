@@ -72,7 +72,7 @@
                 </b-form-group>
 
                 <b-form-group label="Blog description">
-                <vue-editor name="blog_desc" v-model="formData.blog_desc"></vue-editor>
+                <vue-editor id="blog_desc" name="blog_desc" v-model="formData.blog_desc" style="max-height: 350px; overflow-y: auto"></vue-editor>
                 <!-- <b-form-textarea
                   id="blogdescription" 
                   name="blog_desc"
@@ -120,6 +120,14 @@
                     perPageValues:[5,10,15,20,25] ,
                     pagination:{
                       chunk : 5
+                    },
+                    headings: {
+                      'blog_image' : 'Image',
+                      'blog_name' : 'Short Name',
+                      'blog_title' : 'Blog Title',
+                      'category.category_name' : 'Category',
+                      'user.name' : 'Created By',
+                      'created_at':'Created Date' 
                     } 
                   }, 
                   formData : {
@@ -271,7 +279,7 @@
               this.formData.blog_image = URL.createObjectURL(file);
           },
           MakeURL(title){
-            let titlenew = title.toLowerCase().trim().replace(/ /g, "-");
+            let titlenew = title.toLowerCase().trim().replace(/[^a-zA-Z ]/g, "").replace(/  +/g, ' ').replace(/ /g, "-");
             this.formData.blog_url = titlenew; 
           } 
         },
@@ -290,5 +298,5 @@
   .VueTables.VueTables--client label {
       float: left;
       padding: 10px;
-  }
+  } 
 </style>

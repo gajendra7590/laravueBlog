@@ -10,12 +10,12 @@
 							<div class="col-sm-4">
 								<div class="mb-30">
 									<a href="#"><img src="/frontend/images/logo-white.png"></a>
-									<p class="mtb-20 color-ccc">Bit coin is an open-source, peer-to-peer, digital decentralized cryptocurrency.
-									Powered by blockchain technology, its defining characteristic is</p>
-									<p class="color-ash"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-		Copyright &copy;  All rights reserved | This template is made with <i class="ion-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-		<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-		</p>
+									<p class="mtb-20 color-ccc">
+										Laravue is an simple blog site to provide important and latest information about science,social media,technologies related etc.., 
+										its free of cost you do not have to pay anything for new.</p>
+									<p class="color-ash">
+		                              VueLara Blog Copyright &copy;{{ new Date() | moment("YYYY") }}  All rights reserved. 
+		                            </p>
 								</div><!-- mb-30 -->
 							</div><!-- col-md-4 -->
 							
@@ -51,10 +51,9 @@
 					<div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5">
 					
 						<ul class="float-left float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-10">
-							<li><a class="pl-0 pl-sm-10" href="javascript:viod(0);">Terms & Conditions</a></li>
-							<li><a href="javascript:viod(0);">Privacy policy</a></li>
-							<li><a href="javascript:viod(0);">Jobs advertising</a></li>
-							<li><a href="javascript:viod(0);">Contact us</a></li>
+							<li><router-link :to="`/faq`">FAQ</router-link></li>
+							<li><router-link :to="`/about-us`">About</router-link></li>
+							<li><router-link :to="`/contact-us`">Contact</router-link></li>
 						</ul>
 						<ul class="float-right float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-5">
 							<li><a class="pl-0 pl-sm-10" href="javascript:viod(0);"><i class="ion-social-facebook"></i></a></li>

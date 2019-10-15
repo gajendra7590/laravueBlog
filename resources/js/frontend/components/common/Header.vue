@@ -4,11 +4,10 @@
           <div class="bg-191">
             <div class="container">	
               <div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5"> 
-                <ul class="float-left float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-10">
-                  <li><a class="pl-0 pl-sm-10" href="javascript:viod(0);">About</a></li>
-                  <li><a href="javascript:viod(0);">Advertise</a></li>
-                  <li><a href="javascript:viod(0);">Submit Press Release</a></li>
-                  <li><a href="javascript:viod(0);">Contact</a></li>
+                <ul class="float-left float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-10">                   
+                  <li><router-link :to="`/faq`">FAQ</router-link></li>
+                  <li><router-link :to="`/about-us`">About</router-link></li>
+                  <li><router-link :to="`/contact-us`">Contact</router-link></li> 
                 </ul>
                 <ul class="float-right float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-5">
                   <li><a class="pl-0 pl-sm-10" href="javascript:viod(0);"><i class="ion-social-facebook"></i></a></li>
@@ -22,16 +21,20 @@
           </div><!-- bg-191 --> 
           <div class="container">
             <router-link :to="`/`" class="logo"><img src="/frontend/images/logo-black.png" alt="Logo"></router-link> 
-            <a class="right-area src-btn" href="#" >
+            <router-link :to="`/search/blog`" class="right-area" >
+              <i class="active src-icn ion-search"></i> 
+            </router-link>
+            <!-- <button class="right-area src-btn" >
               <i class="active src-icn ion-search"></i>
               <i class="close-icn ion-close"></i>
-            </a>
-            <div class="src-form">
-              <form>
-                <input type="text" placeholder="Search here">
+            </button> -->
+            <!-- <div class="src-form">
+              <form @submit.prevent="globalSearch">
+                <input type="text" v-model="searchtext" placeholder="Global Blog Search Here">
                 <button type="submit"><i class="ion-search"></i></button>
               </form>
-            </div><!-- src-form --> 
+            </div> -->
+            <!-- src-form --> 
             <a class="menu-nav-icon" data-menu="#main-menu" href="#"><i class="ion-navicon"></i></a> 
             <ul class="main-menu" id="main-menu">
               <li>
@@ -57,21 +60,27 @@
         name : "headc",
         data : function(){
           return {
-            blogCategories :[]
+             blogCategories :[],
+             searchtext:''
           }           
         },
         methods:{  
-          getTopCategories(){
-              let _this = this; 
-              this.$store.dispatch('catList')
-              .then(function(data){  
-                  _this.blogCategories = data.data;
-              }); 
-          }
-
+            getTopCategories(){
+                let _this = this; 
+                this.$store.dispatch('catList')
+                .then(function(data){  
+                    _this.blogCategories = data.data;
+                });  
+            },
+            globalSearch(){
+              // var keyword = this.searchtext;  
+              // this.$router.push(`/search/${keyword}`)
+              window.location.href = '/search/'+this.searchtext;
+            } 
         },
         created(){
-          this.getTopCategories();           
+          this.searchtext = this.$route.params.keyword;
+          this.getTopCategories();  
         } 
     }
 </script>

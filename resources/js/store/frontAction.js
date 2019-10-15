@@ -3,6 +3,28 @@ import axios from 'axios';
 Vue.use(axios);
 
 export default { 
+    contactDetail(context){   
+        return new Promise(function(resolve, reject) {  
+            axios.get(context.state.apiURL+'contactDetail',{})
+            .then(function (response) {  
+                return resolve(response.data)
+            })
+            .catch(function (error) {
+                return reject(error.response);
+            });  
+        });      
+    },
+    contactDetailSave(context,formData = []){   
+        return new Promise(function(resolve, reject) {  
+            axios.post(context.state.apiURL+'contactDetailSave',formData)
+            .then(function (response) {  
+                return resolve(response.data)
+            })
+            .catch(function (error) {
+                return reject(error.response);
+            });  
+        });      
+    },
     catList(context){   
         return new Promise(function(resolve, reject) {  
             axios.get(context.state.apiURL+'catList',{})
@@ -47,9 +69,9 @@ export default {
             });  
         });      
     },
-    homeRecentBlogs(context){   
+    homeRecentBlogs(context,payload){  
         return new Promise(function(resolve, reject) {  
-            axios.get(context.state.apiURL+'homeRecentBlogs',{})
+            axios.post(context.state.apiURL+'homeRecentBlogs',payload)
             .then(function (response) {  
                 return resolve(response.data)
             })
@@ -80,9 +102,9 @@ export default {
             });  
         });      
     },
-    blogsByCategory(context,catUrl){   
+    singleBlogSimilarPost(context,blogTitle){   
         return new Promise(function(resolve, reject) {  
-            axios.get(context.state.apiURL+'blogsByCategory/'+catUrl,{})
+            axios.get(context.state.apiURL+'singleSimilarPost/'+blogTitle,{})
             .then(function (response) {  
                 return resolve(response.data)
             })
@@ -90,7 +112,29 @@ export default {
                 return reject(error.response);
             });  
         });      
-    }                                                     
+    },
+    blogsByCategory(context,payload){    
+        return new Promise(function(resolve, reject) {  
+            axios.post(context.state.apiURL+'blogsByCategory/'+payload.catName,payload)
+            .then(function (response) {  
+                return resolve(response.data)
+            })
+            .catch(function (error) {
+                return reject(error.response);
+            });  
+        });      
+    },
+    blogsByFilter(context,payload){    
+        return new Promise(function(resolve, reject) {  
+            axios.post(context.state.apiURL+'blogsByFilter',payload)
+            .then(function (response) {  
+                return resolve(response.data)
+            })
+            .catch(function (error) {
+                return reject(error.response);
+            });  
+        });      
+    }                                                         
 } 
 
 

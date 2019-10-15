@@ -1,3 +1,7 @@
+import Vue from 'vue'; 
+import axios from 'axios'; 
+Vue.use(axios);
+
 export default { 
         login(context,payload){ 
             return new Promise(function(resolve, reject) { 
@@ -13,6 +17,61 @@ export default {
         register(context,payload){
             return new Promise(function(resolve, reject) { 
                 axios.post(context.state.apiURL+'register', payload)
+                .then(function (response) {  
+                    return resolve(response.data)
+                })
+                .catch(function (error) {
+                    return reject(error.response);
+                });  
+            }); 
+        },
+        verifyAccount(context,payload){
+            return new Promise(function(resolve, reject) { 
+                axios.post(context.state.apiURL+'verifyAccount', payload)
+                .then(function (response) {  
+                    return resolve(response.data)
+                })
+                .catch(function (error) {
+                    return reject(error.response);
+                });  
+            }); 
+        },
+        verifySubmitAccount(context,payload){
+            return new Promise(function(resolve, reject) { 
+                axios.post(context.state.apiURL+'verifySubmitAccount', payload)
+                .then(function (response) {  
+                    return resolve(response.data)
+                })
+                .catch(function (error) {
+                    return reject(error.response);
+                });  
+            }); 
+        },
+        verifyResendCode(context,payload){
+            return new Promise(function(resolve, reject) { 
+                axios.post(context.state.apiURL+'verifyResendCode', payload)
+                .then(function (response) {  
+                    return resolve(response.data)
+                })
+                .catch(function (error) {
+                    return reject(error.response);
+                });  
+            }); 
+        },
+        forgotPasswordCodeSend(context,payload){
+            return new Promise(function(resolve, reject) { 
+                axios.post(context.state.apiURL+'forgotPasswordCodeSend', payload)
+                .then(function (response) {  
+                    return resolve(response.data)
+                })
+                .catch(function (error) {
+                    return reject(error.response);
+                });  
+            }); 
+        },
+        forgotPasswordCodeVerify(context,payload){
+            return new Promise(function(resolve, reject) { 
+                axios.post(context.state.apiURL+'forgotPasswordCodeVerify', payload)
                 .then(function (response) {  
                     return resolve(response.data)
                 })

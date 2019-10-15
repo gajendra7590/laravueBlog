@@ -32,6 +32,7 @@
                     name="category_name"
                     placeholder="Enter Category name.."
                     v-model="formData.category_name"
+                    @keyup="setUrl($event.target.value)"
                   ></b-form-input> 
                   <p for="" v-if="errorsArr.category_name" class="text-danger">{{ errorsArr.category_name  }}</p>
                 </b-form-group> 
@@ -42,6 +43,7 @@
                     name="category_url"
                     v-model="formData.category_url"
                     placeholder="Enter Category URL.."
+                    readonly="readonly"
                   ></b-form-input> 
                   <p for="" v-if="errorsArr.category_url" class="text-danger">{{ errorsArr.category_url }}</p>
                 </b-form-group>    
@@ -191,6 +193,10 @@
                       }); 
                   }
               });  
+          },
+          setUrl(title){
+            let titlenew = title.toLowerCase().trim().replace(/[^a-zA-Z ]/g, "").replace(/  +/g, ' ').replace(/ /g, "-");
+            this.formData.category_url = titlenew; 
           } 
         },
         created(){

@@ -15,6 +15,10 @@ class RouteController extends Controller
     public function frontRoute(Request $request){
         return view('admin.adminFront');        
     } 
+
+    public function verifyAccount(Request $request,$code){
+        return view('admin.adminFront');        
+    }  
     
     public function adminRoute(){
         return view('admin.main');    

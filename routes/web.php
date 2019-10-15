@@ -3,7 +3,9 @@
 
 Route::get('/login', 'RouteController@frontRoute');  
 Route::get('/register', 'RouteController@frontRoute');  
-Route::get('/forgot-password', 'RouteController@frontRoute'); 
+Route::get('/verify-account/{verifyCode}', 'RouteController@frontRoute'); 
+Route::get('/resendVerifyCode', 'RouteController@frontRoute');
+Route::get('/forgot-password', 'RouteController@frontRoute');
 
 
 //For Admin Routes

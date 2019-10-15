@@ -16,7 +16,7 @@ class BlogsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { 
+    {  
         $getBlogs = Blogs::select('id','blog_name','blog_title','blog_url','blog_user','blog_category','blog_image','created_at')
                            ->with('category:id,category_name','user:id,name,image')->get();
         return response()->json([

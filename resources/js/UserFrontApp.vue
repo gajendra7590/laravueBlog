@@ -1,7 +1,7 @@
 <template>
-    <div class="main-section">   
+    <div class="main-section"> 
         <headerc ></headerc>  
-           <router-view></router-view>
+           <router-view :key="$route.name + ($route.params.page || '')"></router-view>
         <footerc ></footerc> 
     </div>
   <!-- End of Page Wrapper --> 
@@ -21,6 +21,4 @@
             } 
         }
     }
-</script>
-<style> 
-</style>
+</script> 

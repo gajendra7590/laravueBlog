@@ -31,11 +31,9 @@ Vue.use(VueToastr,{
     defaultClassNames:'zoomInUp'
 }); 
 // Vue.use(ServerTable, [options = {}], [useVuex = false], [theme = 'bootstrap3'], [template = 'default']);
-Vue.use(ClientTable, {}, false, 'bootstrap4');
-
-
-const path = window.location.pathname;
-var result = path.indexOf('/admin') > -1;
+Vue.use(ClientTable, {}, false, 'bootstrap4'); 
+const path = window.location.pathname; 
+var result = path.indexOf('/admin') > -1; 
 var npath = 0;
 if(result){
     var npath = 1;

@@ -15,10 +15,12 @@ class CreateContactusTable extends Migration
     {
         Schema::create('contactus', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('contact_name'); 
+            $table->string('contact_subject'); 
+            $table->string('contact_fullname'); 
             $table->string('contact_email'); 
-            $table->string('contact_title');
-            $table->string('contact_note'); 
+            $table->string('contact_phone'); 
+            $table->string('contact_message');
+            $table->string('contact_company'); 
             $table->timestamps();
         });
     }

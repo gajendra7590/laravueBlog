@@ -25,11 +25,11 @@
                   </form>
                   <hr>
                   <div class="text-center">
-                    <router-link class="small" to="/register">Create new account?</router-link>
+                    <router-link class="small" to="/register">If you don`t have an account click here ?</router-link>
                   </div>
-                  <!-- <div class="text-center">
-                    <router-link class="small" to="/forgot-password">Forgot Password?</router-link>
-                  </div>  -->
+                  <div class="text-center">
+                    <router-link class="small" to="/forgot-password">If you forgot you password click here ?</router-link>
+                  </div> 
                 </div>
               </div>
             </div>
@@ -75,6 +75,5 @@
         background: url(/images/login.jpg) !important;
         background-position: center !important;
         background-size: cover !important;
-    }
-   
+    } 
 </style>

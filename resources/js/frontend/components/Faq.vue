@@ -1,17 +1,16 @@
 <template>
-    <div id="contactus">  
+    <div id="faq">  
         <section class="ptb-0">
             <div class="mb-30 brdr-ash-1 opacty-5"></div>
             <div class="container">
-                <a class="mt-10" href="index.html"><i class="mr-5 ion-ios-home"></i>Home<i class="mlr-10 ion-chevron-right"></i></a>
-                <a class="mt-10" href="04_FAQs.html">FAQs<i class="mlr-10 ion-chevron-right"></i></a>
-                <a class="color-ash mt-10" href="04_FAQs-single.html">How to Buy PowerLedger POWR</a>
+                <router-link class="mt-10" to="`/`"><i class="mr-5 ion-ios-home"></i>Home<i class="mlr-10 ion-chevron-right"></i></router-link>
+                <a class="mt-10" href="javascript:viod(0);">FAQs</a>
             </div><!-- container -->
         </section>
         <section>
             <div class="container">
                 <h2 class="mb-50"><b>FAQs</b></h2>
-                <h4><b>How to Buy PowerLedger POWR</b></h4>
+                <h4><b>Get better knowlegde from out FAQ</b></h4>
                 
                 <p class="pt-30">You can read our safety and security guide which explains how to best secure your account. 
                     But for the sake of convenience, here are a few tips that will protect you against the majority 
@@ -34,7 +33,7 @@
 </template>
 <script>
     export default { 
-        name : "contactUs",
+        name : "faq",
         data : function(){
           return {
             widget : []
